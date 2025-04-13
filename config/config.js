@@ -1,14 +1,4 @@
-require("dotenv").config();
-
-const ssl =
-  process.env.PROD_DB_SSL === "true"
-    ? {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      }
-    : {};
+require('dotenv').config(); // ← add this at the top
 
 module.exports = {
   development: {
@@ -18,19 +8,14 @@ module.exports = {
     host: process.env.DEV_DB_HOST,
     dialect: process.env.DEV_DB_DIALECT,
   },
-  test: {
-    username: process.env.TEST_DB_USERNAME,
-    password: process.env.TEST_DB_PASSWORD,
-    database: process.env.TEST_DB_NAME,
-    host: process.env.TEST_DB_HOST,
-    dialect: process.env.TEST_DB_DIALECT,
-  },
   production: {
-    username: process.env.PROD_DB_USERNAME,
-    password: process.env.PROD_DB_PASSWORD,
-    database: process.env.PROD_DB_NAME,
-    host: process.env.PROD_DB_HOST,
-    dialect: process.env.PROD_DB_DIALECT,
-    dialectOptions: ssl,
+    use_env_variable: 'DATABASE_URL',
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
 };
