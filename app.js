@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const cors = require("cors");
 app.use(cors({ 
-  origin: ['http://localhost:3000', 'http://localhost:5173'], 
+  origin: ['http://localhost:3000', 'http://localhost:5173','https://task-manager-frontend-olive-mu.vercel.app'], 
   credentials: true 
 }));
 
