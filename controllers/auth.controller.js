@@ -64,7 +64,8 @@ const login = async (req, res) => {
 
     res.cookie("token", token, { 
       httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none' // Important for cross-site requests
     }).json({ message: "Login successful", token });
   } catch (error) {
     console.error(error);
