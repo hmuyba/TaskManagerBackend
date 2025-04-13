@@ -62,9 +62,11 @@ const login = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res
-      .cookie("token", token, { httpOnly: true, secure: false })
-      .json({ message: "Login successful", token });
+    res.cookie("token", token, { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production', // true for HTTPS 
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    }).json({ message: "Login successful", token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
