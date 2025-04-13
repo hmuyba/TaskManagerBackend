@@ -9,7 +9,7 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-const SECRET_KEY = process.env.JWT_SECRET || "secreto";
+const JWT_SECRET = process.env.JWT_SECRET || "secreto";
 
 // Register user
 const register = async (req, res) => {
@@ -58,7 +58,7 @@ const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid email or password" });
 
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
       expiresIn: "1h",
     });
 

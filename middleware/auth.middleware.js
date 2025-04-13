@@ -1,6 +1,6 @@
 // This is what your auth middleware might look like
 const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = process.env;
+const JWT_SECRET = process.env.JWT_SECRET || "secreto";
 
 const authenticateToken = (req, res, next) => {
   // Get token from header
@@ -15,7 +15,7 @@ const authenticateToken = (req, res, next) => {
   
   try {
     // Verify token
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
